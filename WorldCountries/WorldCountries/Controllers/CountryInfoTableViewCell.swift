@@ -10,7 +10,6 @@ import SnapKit
 class CountryInfoTableViewCell: UITableViewCell {
     private var dot: UILabel = {
         var label = UILabel()
-        label.text = "•"
         label.font = .systemFont(ofSize: 40, weight: .bold)
         return label
     }()
@@ -38,6 +37,7 @@ class CountryInfoTableViewCell: UITableViewCell {
     }
     
     public func configure(_ valueOfLabel1:String, _ valueOfLabel2:String){
+        self.dot.text = "•"
         self.label1.text = valueOfLabel1
         self.label2.text = valueOfLabel2
     }

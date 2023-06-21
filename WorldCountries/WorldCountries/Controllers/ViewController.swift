@@ -10,6 +10,7 @@ import SnapKit
 
 class ViewController: UIViewController {
     var countryList:[CountryModel] = []
+    
     private var label: UILabel = {
         let label = UILabel()
         label.text = "World's Countries"
@@ -17,6 +18,7 @@ class ViewController: UIViewController {
         label.font = .systemFont(ofSize: 25, weight: .bold)
         return label
     }()
+    
     private lazy var tableView:UITableView = {
         let table = UITableView()
         table.backgroundColor = .white
@@ -36,7 +38,7 @@ class ViewController: UIViewController {
         self.view.addSubview(label)
         self.view.backgroundColor = .white
         label.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(15)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(-30)
             make.centerX.equalToSuperview()
         }
         self.view.addSubview(tableView)
@@ -50,11 +52,8 @@ class ViewController: UIViewController {
 }
 extension ViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rootVC = CountryInfoViewController()
-        let navVC = UINavigationController(rootViewController: rootVC)
-        CountryInfoViewController.countryName = countryList[indexPath.row].countryName
-        navVC.modalPresentationStyle = .fullScreen
-        present(navVC, animated: true)
+        let countryInfoVC = CountryInfoViewController(countryName: countryList[indexPath.row].countryName)
+        self.navigationController?.pushViewController(countryInfoVC, animated: true)
     }
 }
 
@@ -66,10 +65,12 @@ extension ViewController: CountryListDelegate{
                                                  capitalName: country.capital?.first ??
                                                  "Doesn't exist"))
         }
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
+    
     func didLoadFailure() {
         print("Fail...")
     }
@@ -82,6 +83,7 @@ extension ViewController: UITableViewDataSource{
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return countryList.count
     }

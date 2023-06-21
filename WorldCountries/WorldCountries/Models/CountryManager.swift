@@ -13,6 +13,7 @@ protocol CountryListDelegate{
 }
 class CountryManager{
     var delegate:CountryListDelegate?
+    
     func retrieveDataFromAPI(){
         CountryApi.shared.fetchCountryList { countryList in
             if let countryListFromAPI = countryList {

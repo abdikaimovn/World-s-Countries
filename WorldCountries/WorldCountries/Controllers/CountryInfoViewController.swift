@@ -7,18 +7,31 @@
 
 import UIKit
 import SnapKit
+
+enum InfoType{
+    case region,
+         capital,
+         capitalCoordinates,
+         population,
+         area,
+         currency,
+         timeZones
+}
+
 class CountryInfoViewController: UIViewController{
-    static var countryName:String?
+    var countryName:String?
     var countryFlagImageUrl = ""
-    var countryInfoToSetValues = [String]()
-    let countryLabels = [
-        "Region:",
-        "Capital:",
-        "Capital Coordinates:",
-        "Population:",
-        "Area:",
-        "Currency:",
-        "Timezones:"
+    let countryInfoManager = CountryInfoManager()
+    var countryInfoModel: CountryInfoModel?
+    
+    let infoTypes:[InfoType] = [
+        .region,
+        .capital,
+        .capitalCoordinates,
+        .population,
+        .area,
+        .currency,
+        .timeZones
     ]
     
     private var canvas: UIView = {
@@ -26,14 +39,16 @@ class CountryInfoViewController: UIViewController{
         canvas.backgroundColor = .white
         return canvas
     }()
+    
     private var flagImage: UIImageView = {
         let flag = UIImageView()
         flag.layer.cornerRadius = 5
         flag.layer.masksToBounds = false
         flag.clipsToBounds = true
-        flag.image = UIImage(named: "Kazakhstan")!
+        flag.image = UIImage(systemName: "placeholder")
         return flag
     }()
+    
     private lazy var tableView:UITableView = {
         let table = UITableView()
         table.backgroundColor = .white
@@ -42,31 +57,32 @@ class CountryInfoViewController: UIViewController{
         return table
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let countryInfoManager = CountryInfoManager()
         countryInfoManager.delegate = self
-        countryInfoManager.retrieveDataFromAPI()
+        countryInfoManager.retrieveDataFromAPI(countryName: countryName!)
         setupViews()
     }
     
-    @objc func backButtonTapped() {
-        // Dismiss the current view controller
-        dismiss(animated: true, completion: nil)
+    init(countryName: String) {
+        self.countryName = countryName
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupViews(){
-        navigationItem.title = CountryInfoViewController.countryName
+        navigationItem.title = countryName
         navigationItem.titleView?.tintColor = .black
-        let backButton = UIBarButtonItem(title: "❮", style: .plain, target: self, action: #selector(backButtonTapped))
-        let separatorView = UIView()
-        separatorView.backgroundColor = .gray
-        separatorView.frame = CGRect(x: 0, y: 40, width: view.frame.width, height: 1)
-        
-        navigationItem.leftBarButtonItem = backButton
-        navigationController?.navigationBar.addSubview(separatorView)
-        
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "❮",
+            style: .done,
+            target: self,
+            action: nil
+        )
+    
         self.view.addSubview(canvas)
         canvas.snp.makeConstraints { make in
             make.top.left.right.bottom.equalToSuperview().inset(0)
@@ -79,6 +95,7 @@ class CountryInfoViewController: UIViewController{
             make.width.equalTo(350)
             make.height.equalTo(166.6)
         }
+        
         self.canvas.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(flagImage.snp.bottom).offset(26.4)
@@ -101,20 +118,23 @@ extension CountryInfoViewController: CountryInfoDelegate{
                 }
             }
         }
-        countryInfoToSetValues.append(countryInfo.first?.region ?? "nil")
-        countryInfoToSetValues.append(countryInfo.first?.capital.first ?? "nil")
-        if let firstCoordinate = countryInfo.first?.latlng.first,
-           let secondCoordinate = countryInfo.first?.latlng[1]{
-            countryInfoToSetValues.append("\(firstCoordinate), \(secondCoordinate)")
-        }else{
-            countryInfoToSetValues.append("nil")
+        // Initiating the country model
+        let coordinates:[Double] = [countryInfo.first?.latlng[0] ?? 0.0,  countryInfo.first?.latlng[1] ?? 0.0]
+        countryInfoModel = CountryInfoModel(
+            region: countryInfo.first?.region ?? "Fail...",
+            capital: countryInfo.first?.capital.first ?? "Fail...",
+            capitalCoordinates: coordinates,
+            population: countryInfo.first?.population ?? 0,
+            area: countryInfo.first?.area ?? 0.0,
+            currency: countryInfo.first?.currencies.first?.value.name ?? "Fail...",
+            timeZones: countryInfo.first?.timezones.first ?? "Fail..."
+        )
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
-        countryInfoToSetValues.append("\(countryInfo.first?.population ?? 0)")
-        countryInfoToSetValues.append("\(countryInfo.first?.area ?? 0)")
-        countryInfoToSetValues.append(countryInfo.first?.currencies.first?.value.name ?? "nil")
-        countryInfoToSetValues.append(countryInfo.first?.timezones.first ?? "nil")
-        print(countryInfoToSetValues)
     }
+    
     func didLoadFailure() {
         print("Something went wrong")
     }
@@ -128,12 +148,30 @@ extension CountryInfoViewController: UITableViewDelegate{
 
 extension CountryInfoViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countryLabels.count
+        return infoTypes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CountryInfoTableViewCell", for: indexPath) as! CountryInfoTableViewCell
-        cell.configure(countryLabels[indexPath.row], countryInfoToSetValues[indexPath.row])
+        guard let model = countryInfoModel else {return cell}
+        
+        switch infoTypes[indexPath.row]{
+        case .area:
+            cell.configure("Area:", String(model.area))
+        case .region:
+            cell.configure("Region:", model.region)
+        case .capital:
+            cell.configure("Capital:", model.capital)
+        case .capitalCoordinates:
+            cell.configure("Capital Coordinates",
+                           "\(model.capitalCoordinates[0]), \(model.capitalCoordinates[1])")
+        case .population:
+            cell.configure("Population:", String(model.population))
+        case .currency:
+            cell.configure("Currency:", model.currency)
+        case .timeZones:
+            cell.configure("Timezones:", model.timeZones)
+        }
         return cell
     }
     

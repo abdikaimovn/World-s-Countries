@@ -14,8 +14,9 @@ protocol CountryInfoDelegate{
 
 class CountryInfoManager{
     var delegate:CountryInfoDelegate?
-    func retrieveDataFromAPI(){
-        CountryInfoApi.shared.fetchCountryInfo { countryInfo in
+    
+    func retrieveDataFromAPI(countryName: String){
+        CountryInfoApi.shared.fetchCountryInfo(nameOftheCountry: countryName) { countryInfo in
             if let safeCountryInfo = countryInfo{
                 self.delegate?.didLoadCountryInfo(safeCountryInfo)
             }else{

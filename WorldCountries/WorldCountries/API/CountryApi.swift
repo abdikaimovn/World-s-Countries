@@ -10,6 +10,7 @@ import UIKit
 
 struct CountryApi{
     static let shared = CountryApi()
+    
     func fetchCountryList(completion: @escaping ([Country]?) -> Void) {
         let urlString = "https://restcountries.com/v3.1/all"
         let url = URL(string: urlString)!
@@ -29,6 +30,7 @@ struct CountryApi{
         }
         task.resume()
     }
+    
     func fetchImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
         let url = URL(string: urlString)!
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -47,8 +49,6 @@ struct CountryApi{
             completion(image)
         }.resume()
     }
-    
-
 }
 
 
@@ -65,48 +65,3 @@ struct FlagOfTheCountry:Codable{
 struct CountryName:Codable{
     let common: String
 }
-/*
- [
-   {
-     "name": {
-       "common": "Jordan",
-       "official": "Hashemite Kingdom of Jordan",
-       "nativeName": {
-         "ara": {
-           "official": "Ø§Ù„Ù…Ù…Ù„ÙƒØ© Ø§Ù„Ø£Ø±Ø¯Ù†ÙŠØ© Ø§Ù„Ù‡Ø§Ø´Ù…ÙŠØ©",
-           "common": "Ø§Ù„Ø£Ø±Ø¯Ù†"
-         }
-       }
-     },
-     "tld": [
-       ".jo",
-       "Ø§Ù„Ø§Ø±Ø¯Ù†."
-     ],
-     "cca2": "JO",
-     "ccn3": "400",
-     "cca3": "JOR",
-     "cioc": "JOR",
-     "independent": true,
-     "status": "officially-assigned",
-     "unMember": true,
-     "currencies": {
-       "JOD": {
-         "name": "Jordanian dinar",
-         "symbol": "Ø¯.Ø§"
-       }
-     },
-     "idd": {
-       "root": "+9",
-       "suffixes": [
-         "62"
-       ]
-     },
-     "capital": [
-       "Amman"
-     ],
-     "altSpellings": [
-       "JO",
-       "Hashemite Kingdom of Jordan",
-       "al-Mamlakah al-UrdunÄ«yah al-HÄshimÄ«yah"
-     ],
- */

@@ -18,6 +18,7 @@ class ListOfCountriesTableViewCell: UITableViewCell {
         flagImage.clipsToBounds = true
         return flagImage
     }()
+    
     var countryNameLabel: UILabel = {
         var label = UILabel()
         label.textColor = .black

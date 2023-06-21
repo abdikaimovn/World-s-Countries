@@ -2,19 +2,17 @@
 //  CountryInfoModel.swift
 //  WorldCountries
 //
-//  Created by Нурдаулет on 11.06.2023.
+//  Created by Нурдаулет on 18.06.2023.
 //
 
 import Foundation
-import UIKit
 
 struct CountryInfoModel{
-    var countryFlagImageURL:String
-    var region:String
-    var capital:String
-    var capitalCoordinates:String
-    var population:Double
-    var area:Double
-    var currency:String
-    var timeZones:String
+    let region: String
+    let capital: String
+    let capitalCoordinates: [Double]
+    let population: Double
+    let area: Double
+    let currency: String
+    let timeZones: String
 }
