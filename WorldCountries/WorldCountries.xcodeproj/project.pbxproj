@@ -74,14 +74,11 @@
 		6F09724F2A2F7B4300A2B872 /* WorldCountries */ = {
 			isa = PBXGroup;
 			children = (
-				6F71A12A2A3193FD0051285F /* Supporting */,
 				6F71A1282A31938D0051285F /* Models */,
 				6F71A1272A3193860051285F /* Controllers */,
 				6F71A1262A31937C0051285F /* API */,
 				6F71A1252A3193700051285F /* Views */,
-				6F0972502A2F7B4300A2B872 /* AppDelegate.swift */,
-				6F0972522A2F7B4300A2B872 /* SceneDelegate.swift */,
-				6F0972592A2F7B4500A2B872 /* Assets.xcassets */,
+				6F71A12A2A3193FD0051285F /* Supporting */,
 				6F09725E2A2F7B4500A2B872 /* Info.plist */,
 			);
 			path = WorldCountries;
@@ -129,6 +126,9 @@
 		6F71A12A2A3193FD0051285F /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				6F0972502A2F7B4300A2B872 /* AppDelegate.swift */,
+				6F0972522A2F7B4300A2B872 /* SceneDelegate.swift */,
+				6F0972592A2F7B4500A2B872 /* Assets.xcassets */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";

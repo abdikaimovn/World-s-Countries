@@ -50,6 +50,7 @@ class ViewController: UIViewController {
         }
     }
 }
+
 extension ViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let countryInfoVC = CountryInfoViewController(countryName: countryList[indexPath.row].countryName)
