@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-enum InfoType{
+enum InfoType: CaseIterable{
     case region,
          capital,
          capitalCoordinates,
@@ -24,15 +24,7 @@ class CountryInfoViewController: UIViewController{
     let countryInfoManager = CountryInfoManager()
     var countryInfoModel: CountryInfoModel?
     
-    let infoTypes:[InfoType] = [
-        .region,
-        .capital,
-        .capitalCoordinates,
-        .population,
-        .area,
-        .currency,
-        .timeZones
-    ]
+    let infoTypes = InfoType.allCases
     
     private var canvas: UIView = {
         let canvas = UIView()
@@ -118,6 +110,7 @@ extension CountryInfoViewController: CountryInfoDelegate{
                 }
             }
         }
+        
         // Initiating the country model
         let coordinates:[Double] = [countryInfo.first?.latlng[0] ?? 0.0,  countryInfo.first?.latlng[1] ?? 0.0]
         countryInfoModel = CountryInfoModel(

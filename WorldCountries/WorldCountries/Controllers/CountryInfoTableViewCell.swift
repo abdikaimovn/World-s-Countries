@@ -44,16 +44,19 @@ class CountryInfoTableViewCell: UITableViewCell {
     
     private func setupViews(){
         self.selectionStyle = .none
+        
         addSubview(dot)
         dot.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(-10)
             make.left.equalToSuperview().inset(10)
         }
+        
         addSubview(label1)
         label1.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.left.equalTo(dot.snp.right).offset(10)
         }
+        
         addSubview(label2)
         label2.snp.makeConstraints { make in
             make.top.equalTo(label1.snp.bottom).offset(2)

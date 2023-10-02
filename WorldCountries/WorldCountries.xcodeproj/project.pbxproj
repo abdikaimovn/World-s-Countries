@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6F0972512A2F7B4300A2B872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0972502A2F7B4300A2B872 /* AppDelegate.swift */; };
 		6F0972532A2F7B4300A2B872 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0972522A2F7B4300A2B872 /* SceneDelegate.swift */; };
-		6F0972552A2F7B4300A2B872 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0972542A2F7B4300A2B872 /* ViewController.swift */; };
+		6F0972552A2F7B4300A2B872 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0972542A2F7B4300A2B872 /* MainViewController.swift */; };
 		6F09725A2A2F7B4500A2B872 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F0972592A2F7B4500A2B872 /* Assets.xcassets */; };
 		6F09725D2A2F7B4500A2B872 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F09725B2A2F7B4500A2B872 /* LaunchScreen.storyboard */; };
 		6F0972652A2F7B7200A2B872 /* ListOfCountriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0972642A2F7B7200A2B872 /* ListOfCountriesTableViewCell.swift */; };
@@ -19,6 +19,7 @@
 		6F5BAD222A35CB5200458052 /* CountryInfoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BAD212A35CB5200458052 /* CountryInfoApi.swift */; };
 		6F5BAD242A35FCA100458052 /* CountryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BAD232A35FCA100458052 /* CountryManager.swift */; };
 		6F71A1302A31C14A0051285F /* CountryApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71A12F2A31C14A0051285F /* CountryApi.swift */; };
+		6FA08B272ACADCB100F8F986 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA08B262ACADCB100F8F986 /* MainView.swift */; };
 		6FF4978E2A39C5DD008441EC /* CountryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF4978D2A39C5DD008441EC /* CountryInfoViewController.swift */; };
 		6FF497902A39C781008441EC /* CountryInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF4978F2A39C781008441EC /* CountryInfoTableViewCell.swift */; };
 		6FF497922A39F4AE008441EC /* CountryInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF497912A39F4AE008441EC /* CountryInfoManager.swift */; };
@@ -28,7 +29,7 @@
 		6F09724D2A2F7B4300A2B872 /* WorldCountries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorldCountries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F0972502A2F7B4300A2B872 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F0972522A2F7B4300A2B872 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6F0972542A2F7B4300A2B872 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6F0972542A2F7B4300A2B872 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		6F0972592A2F7B4500A2B872 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F09725C2A2F7B4500A2B872 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6F09725E2A2F7B4500A2B872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -38,6 +39,7 @@
 		6F5BAD212A35CB5200458052 /* CountryInfoApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInfoApi.swift; sourceTree = "<group>"; };
 		6F5BAD232A35FCA100458052 /* CountryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryManager.swift; sourceTree = "<group>"; };
 		6F71A12F2A31C14A0051285F /* CountryApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryApi.swift; sourceTree = "<group>"; };
+		6FA08B262ACADCB100F8F986 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6FF4978D2A39C5DD008441EC /* CountryInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInfoViewController.swift; sourceTree = "<group>"; };
 		6FF4978F2A39C781008441EC /* CountryInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInfoTableViewCell.swift; sourceTree = "<group>"; };
 		6FF497912A39F4AE008441EC /* CountryInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInfoManager.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				6F09725B2A2F7B4500A2B872 /* LaunchScreen.storyboard */,
+				6FA08B262ACADCB100F8F986 /* MainView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -105,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				6F0972642A2F7B7200A2B872 /* ListOfCountriesTableViewCell.swift */,
-				6F0972542A2F7B4300A2B872 /* ViewController.swift */,
+				6F0972542A2F7B4300A2B872 /* MainViewController.swift */,
 				6FF4978D2A39C5DD008441EC /* CountryInfoViewController.swift */,
 				6FF4978F2A39C781008441EC /* CountryInfoTableViewCell.swift */,
 			);
@@ -210,11 +213,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F5BAD222A35CB5200458052 /* CountryInfoApi.swift in Sources */,
+				6FA08B272ACADCB100F8F986 /* MainView.swift in Sources */,
 				6FF497922A39F4AE008441EC /* CountryInfoManager.swift in Sources */,
 				6F3314422A3F314500B838CA /* CountryInfoModel.swift in Sources */,
 				6F71A1302A31C14A0051285F /* CountryApi.swift in Sources */,
 				6FF497902A39C781008441EC /* CountryInfoTableViewCell.swift in Sources */,
-				6F0972552A2F7B4300A2B872 /* ViewController.swift in Sources */,
+				6F0972552A2F7B4300A2B872 /* MainViewController.swift in Sources */,
 				6F0972652A2F7B7200A2B872 /* ListOfCountriesTableViewCell.swift in Sources */,
 				6F0972512A2F7B4300A2B872 /* AppDelegate.swift in Sources */,
 				6F0972532A2F7B4300A2B872 /* SceneDelegate.swift in Sources */,
