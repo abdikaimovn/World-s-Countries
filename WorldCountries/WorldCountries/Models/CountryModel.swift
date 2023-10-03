@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-struct CountryModel{
-    var countryImageURL:String
+struct CountryModel {
+    var countryImageURL: String
     var countryName: String
     var capitalName: String
 }

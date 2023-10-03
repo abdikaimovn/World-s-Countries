@@ -7,20 +7,22 @@
 
 import UIKit
 import SnapKit
+
 class CountryInfoTableViewCell: UITableViewCell {
     private var dot: UILabel = {
         var label = UILabel()
         label.font = .systemFont(ofSize: 40, weight: .bold)
         return label
     }()
-    private var label1: UILabel = {
+    
+    private var firstData: UILabel = {
         var label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .gray
         return label
     }()
     
-    private var label2:UILabel = {
+    private var secondData: UILabel = {
         var label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .black
@@ -38,8 +40,8 @@ class CountryInfoTableViewCell: UITableViewCell {
     
     public func configure(_ valueOfLabel1:String, _ valueOfLabel2:String){
         self.dot.text = "•"
-        self.label1.text = valueOfLabel1
-        self.label2.text = valueOfLabel2
+        self.firstData.text = valueOfLabel1
+        self.secondData.text = valueOfLabel2
     }
     
     private func setupViews(){
@@ -51,15 +53,15 @@ class CountryInfoTableViewCell: UITableViewCell {
             make.left.equalToSuperview().inset(10)
         }
         
-        addSubview(label1)
-        label1.snp.makeConstraints { make in
+        addSubview(firstData)
+        firstData.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.left.equalTo(dot.snp.right).offset(10)
         }
         
-        addSubview(label2)
-        label2.snp.makeConstraints { make in
-            make.top.equalTo(label1.snp.bottom).offset(2)
+        addSubview(secondData)
+        secondData.snp.makeConstraints { make in
+            make.top.equalTo(firstData.snp.bottom).offset(2)
             make.left.equalTo(dot.snp.right).offset(10)
             make.bottom.equalToSuperview().inset(5)
         }

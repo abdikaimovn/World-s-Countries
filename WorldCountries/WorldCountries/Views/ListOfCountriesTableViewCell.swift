@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+
 class ListOfCountriesTableViewCell: UITableViewCell {
     //MARK: Views
     private var flagImageView: UIImageView = {

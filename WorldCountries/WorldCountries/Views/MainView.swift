@@ -7,18 +7,25 @@
 
 import UIKit
 
+// Protocol for communication between MainView and MainViewController
 protocol MainViewControllerDelegate: AnyObject {
     func didTapCell(_ cellIndex: Int)
 }
 
+// Protocol for communication between MainView and MainViewController
 protocol MainViewDelegate: AnyObject {
     func reloadTableView(countryList: [CountryModel])
 }
 
+// Main view class
 class MainView: UIView {
-    var countryList = [CountryModel]()
+    // Array to store country data
+    private var countryList = [CountryModel]()
+    
+    // Weak reference to the delegate for cell tap events
     weak var mainVCDelegate: MainViewControllerDelegate?
     
+    // Header label
     private var header: UILabel = {
         let label = UILabel()
         label.text = "World's Countries"
@@ -27,6 +34,7 @@ class MainView: UIView {
         return label
     }()
     
+    // Table view to display the list of countries
     private lazy var countryListTableView: UITableView = {
         let table = UITableView()
         table.delegate = self
@@ -36,6 +44,7 @@ class MainView: UIView {
         return table
     }()
     
+    // Initialize MainView with a reference to MainViewController
     init(mainViewController: MainViewController) {
         self.mainVCDelegate = mainViewController
         super.init(frame: .zero)
@@ -47,6 +56,7 @@ class MainView: UIView {
     
     override func layoutSubviews() {
         self.backgroundColor = .white
+        countryListTableView.separatorStyle = .none
         
         addSubview(header)
         
@@ -61,19 +71,21 @@ class MainView: UIView {
             make.top.equalTo(header.snp.bottom).offset(10)
         }
     }
-
 }
 
-
+// Conform to UITableViewDelegate and UITableViewDataSource
 extension MainView: UITableViewDelegate, UITableViewDataSource {
+    // Handle cell selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         mainVCDelegate?.didTapCell(indexPath.row)
     }
 
+    // Return the number of rows in the table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         countryList.count
     }
     
+    // Configure and return a table view cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListOfCountriesTableViewCell") as! ListOfCountriesTableViewCell
         cell.configure(countryInfo: countryList[indexPath.row])
@@ -81,7 +93,9 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// Conform to MainViewDelegate for table view data reloading
 extension MainView : MainViewDelegate {
+    // Reload the table view with new country data
     func reloadTableView(countryList: [CountryModel]) {
         self.countryList = countryList
         

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CountryInfoModel{
+struct CountryInfoModel {
     let region: String
     let capital: String
     let capitalCoordinates: [Double]
