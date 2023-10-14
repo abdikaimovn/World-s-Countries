@@ -12,6 +12,7 @@ import UIKit
 struct CountryInfoApi {
     // Shared instance of CountryInfoApi for Singleton pattern
     static let shared = CountryInfoApi()
+    private var defaultQueue = DispatchQueue.global(qos: .default)
     
     // Replace white spaces with "%20" in a string for URL compatibility
     func replaceWhiteSpaces(str: String) -> String {
@@ -33,24 +34,32 @@ struct CountryInfoApi {
         let url = URL(string: urlString)!
         
         // Create a data task to make the API request
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            // Check for errors or nil data
-            guard let safeData = data else {
-                print("Data was nil")
-                completion(nil)
-                return
+        defaultQueue.async {
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                // Check for errors or nil data
+                guard let safeData = data else {
+                    print("Data was nil")
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                    return
+                }
+                
+                do {
+                    // Decode the JSON response into an array of CountryInfo objects
+                    let countryInfo = try JSONDecoder().decode([CountryInfo].self, from: safeData)
+                    DispatchQueue.main.async {
+                        completion(countryInfo)
+                    }
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                }
             }
-            
-            do {
-                // Decode the JSON response into an array of CountryInfo objects
-                let countryInfo = try JSONDecoder().decode([CountryInfo].self, from: safeData)
-                completion(countryInfo)
-            } catch {
-                print("Error decoding JSON: \(error)")
-                completion(nil)
-            }
+            task.resume() // Start the data task
         }
-        task.resume() // Start the data task
     }
     
     // Fetch an image from a given URL
@@ -58,23 +67,31 @@ struct CountryInfoApi {
         let url = URL(string: urlString)!
         
         // Create a data task to download the image
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            // Check for network errors
-            if let error = error {
-                print("Error fetching image: \(error.localizedDescription)")
-                completion(nil)
-                return
-            }
-            
-            // Check if data is valid and convert it to an image
-            guard let data = data, let image = UIImage(data: data) else {
-                print("Invalid image data")
-                completion(nil)
-                return
-            }
-            
-            completion(image)
-        }.resume() // Start the data task
+        defaultQueue.async {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                // Check for network errors
+                if let error = error {
+                    print("Error fetching image: \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                    return
+                }
+                
+                // Check if data is valid and convert it to an image
+                guard let data = data, let image = UIImage(data: data) else {
+                    print("Invalid image data")
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            }.resume() // Start the data task
+        }
     }
 }
 
